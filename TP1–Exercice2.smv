@@ -1,17 +1,32 @@
-MODULE main
+MODULE assign
 VAR
- a : boolean ;
- b : boolean ;
+ a : boolean;
+ b : boolean;
 ASSIGN
  init(a) := TRUE;
  init(b) := FALSE;
  next(a) := case
   a & b : TRUE;
   a & !b : {TRUE, FALSE};
-  !a : FALSE;
+  !a: FALSE;
  esac;
  next(b) := case
   a & b : FALSE;
   a & !b : {TRUE, FALSE};
   !a : TRUE;
  esac;
+
+MODULE define
+VAR
+	state : {0, 1, 2, 3};
+ASSIGN
+	init(state) := 1;
+	next(state):= case
+		state = 0 | state = 2 : 2;
+		state = 1 : {0, 2, 3};
+		state = 3 : 1;
+	esac;
+DEFINE
+	a := state - (2 * (state / 2));
+	b := state / 2;
+

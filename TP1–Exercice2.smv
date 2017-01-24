@@ -1,4 +1,4 @@
-MODULE assign
+MODULE main
 VAR
  a : boolean;
  b : boolean;
@@ -16,6 +16,15 @@ ASSIGN
   !a : TRUE;
  esac;
 
+SPEC AG a
+SPEC A [a U b]
+SPEC A [a U AX (a & !b)]
+SPEC AX !b & AG (!a | !b)
+SPEC AX (a & b) & AF (!a & !b)
+SPEC EF EG a
+SPEC EF EG b
+SPEC AF ((AG a) | (AG b))
+
 MODULE define
 VAR
 	state : {0, 1, 2, 3};
@@ -30,7 +39,16 @@ DEFINE
 	a := state - (2 * (state / 2));
 	b := state / 2;
 
-MODULE main
+SPEC AG a
+SPEC A [a U b]
+SPEC A [a U AX (a & !b)]
+SPEC AX !b & AG (!a | !b)
+SPEC AX (a & b) & AF (!a & !b)
+SPEC EF EG a
+SPEC EF EG b
+SPEC AF ((AG a) | (AG b))
+
+MODULE trans
 VAR
 	state : {0, 1, 2, 3};
 INIT
@@ -41,9 +59,12 @@ TRANS
 		state = 1 : next(state) in {0, 2, 3};
 		state = 3 : next(state) = 1;
 	esac
---INV
-	--a = state - (2 * (state / 2));
-	--b = state / 2;
 
-
-
+SPEC AG a
+SPEC A [a U b]
+SPEC A [a U AX (a & !b)]
+SPEC AX !b & AG (!a | !b)
+SPEC AX (a & b) & AF (!a & !b)
+SPEC EF EG a
+SPEC EF EG b
+SPEC AF ((AG a) | (AG b))

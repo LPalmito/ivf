@@ -1,0 +1,17 @@
+MODULE main
+VAR
+ a : boolean ;
+ b : boolean ;
+ASSIGN
+ init(a) := TRUE;
+ init(b) := FALSE;
+ next(a) := case
+  a & b : TRUE;
+  a & !b : {TRUE, FALSE};
+  !a : FALSE;
+ esac;
+ next(b) := case
+  a & b : FALSE;
+  a & !b : {TRUE, FALSE};
+  !a : TRUE;
+ esac;

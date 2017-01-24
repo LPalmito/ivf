@@ -1,0 +1,20 @@
+MODULE main
+VAR
+	state : {0, 1, 2, 3};
+INIT
+	state in {1}
+TRANS
+	case  
+		state = 0 | state = 2 : next(state) = 2;
+		state = 1 : next(state) in {0, 2, 3};
+		state = 3 : next(state) = 1;
+	esac
+
+SPEC AG a
+SPEC A [a U b]
+SPEC A [a U AX (a & !b)]
+SPEC AX !b & AG (!a | !b)
+SPEC AX (a & b) & AF (!a & !b)
+SPEC EF EG a
+SPEC EF EG b
+SPEC AF ((AG a) | (AG b))

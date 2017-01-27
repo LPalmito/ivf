@@ -1,0 +1,14 @@
+MODULE main
+VAR
+ a : boolean;
+ b : boolean;
+ c : boolean;
+
+SPEC EF a <-> EG a
+SPEC (EF a | EF b) <-> EG (a | b)
+SPEC (AF a | AF b) <-> AF (a | b)
+SPEC AF !b <-> !(EG b)
+SPEC EF !b <-> !(AF b)
+SPEC A [b U A [a U c]] <-> A [A [b U a] U c]
+SPEC EG a -> EG a
+SPEC EG a -> AG a

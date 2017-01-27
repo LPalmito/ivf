@@ -9,8 +9,8 @@ ASSIGN
 		state = 3 : 1;
 	esac;
 DEFINE
-	a := state - (2 * (state / 2));
-	b := state / 2;
+	a := bool(state - (2 * (state / 2)));
+	b := bool(state / 2);
 
 SPEC AG a
 SPEC A [a U b]

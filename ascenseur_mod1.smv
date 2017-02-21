@@ -1,0 +1,79 @@
+MODULE main
+VAR
+	floor : {0, 1, 2};
+	is_someone_in : boolean;
+	in_button_0 : boolean;
+	in_button_1 : boolean;
+	in_button_2 : boolean;
+	out_button_0 : boolean;
+	out_button_1 : boolean;
+	out_button_2 : boolean;
+ASSIGN
+	init(floor) := 0;
+	init(is_someone_in) := FALSE;
+	init(in_button_0) := FALSE;
+	init(in_button_1) := FALSE;
+	init(in_button_2) := FALSE;
+	next(floor) := case
+		floor = 0 & in_button_0 : 0;
+		floor = 0 & in_button_1 : 1;
+		floor = 0 & in_button_2 : 2;
+		floor = 1 & in_button_1 : 1;
+		floor = 1 & in_button_0 : 0;
+		floor = 1 & in_button_2 : 2;
+		floor = 2 & in_button_2 : 2;
+		floor = 2 & in_button_1 : 1;
+		floor = 2 & in_button_0 : 0;
+		floor = 0 & out_button_0 : 0;
+		floor = 0 & out_button_1 : 1;
+		floor = 0 & out_button_2 : 2;
+		floor = 1 & out_button_1 : 1;
+		floor = 1 & out_button_0 : 0;
+		floor = 1 & out_button_2 : 2;
+		floor = 2 & out_button_2 : 2;
+		floor = 2 & out_button_1 : 1;
+		floor = 2 & out_button_0 : 0;
+		TRUE : floor;
+	esac;
+	next(in_button_0) := case
+		!is_someone_in | floor = 0 : FALSE;
+		in_button_0 = TRUE : TRUE;
+		TRUE : {TRUE, FALSE};
+	esac;
+	next(in_button_1) := case
+		!is_someone_in | floor = 1 : FALSE;
+		in_button_1 = TRUE : TRUE;
+		TRUE : {TRUE, FALSE};
+	esac;
+	next(in_button_2) := case
+		!is_someone_in | floor = 2 : FALSE;
+		in_button_2 = TRUE : TRUE;
+		TRUE: {TRUE, FALSE};
+	esac;
+	next(out_button_0) := case
+		floor = 0 : FALSE;
+		out_button_0 = TRUE : TRUE;
+		TRUE : {TRUE, FALSE};
+	esac;
+	next(out_button_1) := case
+		floor = 1 : FALSE;
+		out_button_1 = TRUE : TRUE;
+		TRUE : {TRUE, FALSE};
+	esac;
+	next(out_button_2) := case
+		floor = 2 : FALSE;
+		out_button_2 = TRUE : TRUE;
+		TRUE: {TRUE, FALSE};
+	esac;
+	next(is_someone_in) := case
+		(floor = 0 & out_button_0) | (floor = 1 & out_button_1) | (floor = 2 & out_button_2) : TRUE;
+		(floor = 0 & in_button_0) | (floor = 1 & in_button_1) | (floor = 2 & in_button_2) : FALSE;
+		TRUE : is_someone_in;
+	esac;
+
+SPEC AG (in_button_0 -> EF (floor = 0))
+SPEC AG (in_button_1 -> EF (floor = 1))
+SPEC AG (in_button_2 -> EF (floor = 2))
+SPEC AG (out_button_0 -> EF (floor = 0))
+SPEC AG (out_button_1 -> EF (floor = 1))
+SPEC AG (out_button_2 -> EF (floor = 2))

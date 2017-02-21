@@ -71,9 +71,7 @@ ASSIGN
 		TRUE : is_someone_in;
 	esac;
 
-SPEC AG (in_button_0 -> EF (floor = 0))
-SPEC AG (in_button_1 -> EF (floor = 1))
-SPEC AG (in_button_2 -> EF (floor = 2))
-SPEC AG (out_button_0 -> EF (floor = 0))
-SPEC AG (out_button_1 -> EF (floor = 1))
-SPEC AG (out_button_2 -> EF (floor = 2))
+SPEC AG (in_button_0 | out_button_0) -> EF (floor = 0)
+SPEC AG (in_button_1 | out_button_1) -> EF (floor = 1)
+SPEC AG (in_button_2 | out_button_2) -> EF (floor = 2)
+SPEC AG ((in_button_0 | in_button_1 | in_button_2) & !is_someone_in)

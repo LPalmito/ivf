@@ -1,6 +1,8 @@
 MODULE main
+-- On décide de modéliser le problème sous la forme d’un état qui peut prendre 16 valeurs suivant les positions de la feuille, du lombric, du millepatte et de la sauterelle 
 VAR
-	state : 0..15;		
+	state : 0..15;	
+-- Pour chaque état, on modélise les états qui peuvent être accessibles en partant de l’état considéré 	
 ASSIGN
 	init(state) := 0;
 	next(state):= case
@@ -21,6 +23,7 @@ ASSIGN
 		state = 14 : {0, 2, 3};
 		state = 15 : {1, 4, 5, 6};
 	esac;
+-- Les lignes suivantes permettent de déterminer de quel côté de la rivière se trouve chaque entité considérée 
 DEFINE
 	lombric := bool(state - (8 * (state / 8)) - (4 * ((state - (8 * (state / 8))) / 4)) - (2 * ((state - (8 * (state / 8)) - (4 * ((state - (8 * (state / 8))) / 4))) / 2)));
 	millepatte := bool((state - (8 * (state / 8)) - (4 * ((state - (8 * (state / 8))) / 4))) / 2);

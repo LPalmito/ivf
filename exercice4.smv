@@ -1,9 +1,11 @@
 MODULE main
+-- Les 3 variables suivantes modélisent les formules 
 VAR
  a : boolean;
  b : boolean;
  c : boolean;
 
+-- Les 8 spécifications suivantes permettent de retourner si les formules CTL sont équivalentes ou non
 SPEC EF a <-> EG a
 SPEC (EF a | EF b) <-> EG (a | b)
 SPEC (AF a | AF b) <-> AF (a | b)

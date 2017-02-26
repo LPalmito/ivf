@@ -1,4 +1,5 @@
 MODULE main
+-- Codage du problème via les deux booléens 'a' et 'b'
 VAR
  a : boolean;
  b : boolean;
@@ -16,6 +17,8 @@ ASSIGN
   !a : TRUE;
  esac;
 
+
+-- Vérifications via les spécifications suivantes
 SPEC AG a
 SPEC A [a U b]
 SPEC A [a U AX (a & !b)]

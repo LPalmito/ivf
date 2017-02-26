@@ -1,4 +1,5 @@
 MODULE main
+-- Codage du problème via l'état 'state' pouvant être égal à 0, 1, 2 ou 3
 VAR
 	state : {0, 1, 2, 3};
 INIT
@@ -9,6 +10,7 @@ TRANS
 		state = 1 : next(state) in {0, 2, 3};
 		state = 3 : next(state) = 1;
 	esac
+-- Correspondance entre le 'state' et les variables 'a' et 'b' originales
 DEFINE
 	a := bool(state - (2 * (state / 2)));
 	b := bool(state / 2);

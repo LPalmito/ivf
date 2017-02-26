@@ -1,4 +1,6 @@
 MODULE main
+-- Le booléen 'request' code le fait d'effectuer une requête (TRUE) ou non (FALSE)
+-- Le 'state' exprime le fait que l'automate soit prête ('ready') ou déjà occupé ('busy')
 VAR
  request : boolean ;
  state : {ready, busy};
